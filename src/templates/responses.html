@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tind AI - Responses</title>
+</head>
+<body>
+    <h1>Tind AI - Responses</h1>
+    <p><b>Context:</b> {{ context }}</p>
+    <form action="/save_feedback" method="post">
+        <input type="hidden" name="context" value="{{ context }}">
+        {% for response in responses %}
+            <input type="hidden" name="responses" value="{{ response }}">
+            <input type="radio" name="best_response" value="{{ response }}" id="response{{ loop.index }}">
+            <label for="response{{ loop.index }}">{{ response }}</label>
+            <br>
+        {% endfor %}
+        <br>
+        <input type="submit" value="Save Feedback">
+    </form>
+</body>
+</html>

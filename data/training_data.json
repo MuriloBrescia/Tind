@@ -1,0 +1,13 @@
+[
+  {
+    "context": "Oi, como vai?",
+    "responses": [
+      "Oi! Estou ótimo, mas a conversa ficou ainda melhor agora. E você?",
+      "Tudo bem, só pensando em como te impressionar. Alguma dica?",
+      "Melhor agora que você chegou.",
+      "Estou bem, e você? Procurando algo interessante por aqui?",
+      "Oi! Tudo ótimo. O que te traz por aqui?"
+    ],
+    "best_response": "Oi! Estou ótimo, mas a conversa ficou ainda melhor agora. E você?"
+  }
+]
