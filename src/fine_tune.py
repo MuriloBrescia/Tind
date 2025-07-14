@@ -17,10 +17,11 @@ from datetime import datetime
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Constants
-MODEL_DIR = "./models"
+# Constants - paths relative to project root
+_project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MODEL_DIR = os.path.join(_project_root, "models")
 MODEL_FILE = "model.txt"
-TRAINING_DATA_PATH = "./data/training_data.json"
+TRAINING_DATA_PATH = os.path.join(_project_root, "data", "training_data.json")
 MODEL_METADATA_FILE = "model_metadata.json"
 
 class ModelTrainer:

@@ -15,12 +15,14 @@ app.secret_key = os.environ.get('SECRET_KEY', 'dev-key-change-in-production')
 # Initialize the agent
 agent = TindAgent()
 
-@app.before_first_request
 def initialize_app():
     """Initialize the application."""
     logger.info("Tind AI application starting...")
     if not agent.model_content:
         logger.warning("No model loaded - using default response generation")
+
+# Initialize the app on startup
+initialize_app()
 
 @app.errorhandler(404)
 def not_found_error(error):

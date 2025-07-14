@@ -9,9 +9,10 @@ import threading
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Constants
-DEFAULT_MODEL_PATH = "./models/model.txt"
-TRAINING_DATA_PATH = "./data/training_data.json"
+# Constants - paths relative to project root
+_project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEFAULT_MODEL_PATH = os.path.join(_project_root, "models", "model.txt")
+TRAINING_DATA_PATH = os.path.join(_project_root, "data", "training_data.json")
 OFFENSIVE_WORDS = ["hate", "kill", "die", "hurt", "violence"]
 
 # Thread lock for safe file operations

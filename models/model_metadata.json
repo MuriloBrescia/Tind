@@ -1,6 +1,6 @@
 {
-  "model_version": "tind-v20250714-063846",
-  "training_timestamp": "2025-07-14T06:38:46.920648",
+  "model_version": "tind-v20250714-064949",
+  "training_timestamp": "2025-07-14T06:49:49.125929",
   "training_data_analysis": {
     "total_examples": 1,
     "unique_contexts": 1,
