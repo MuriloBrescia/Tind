@@ -1,0 +1,21 @@
+{
+  "model_version": "tind-v20250714-063846",
+  "training_timestamp": "2025-07-14T06:38:46.920648",
+  "training_data_analysis": {
+    "total_examples": 1,
+    "unique_contexts": 1,
+    "total_responses": 5,
+    "unique_responses": 5,
+    "avg_context_length": 13.0,
+    "avg_response_length": 49.8,
+    "recent_examples": 0
+  },
+  "model_type": "conversational_response_generator",
+  "framework": "tind_ai_simulation",
+  "capabilities": [
+    "context_understanding",
+    "response_generation",
+    "tone_adaptation",
+    "content_filtering"
+  ]
+}

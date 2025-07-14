@@ -1,21 +1,353 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Tind AI - Responses</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tind AI - Choose Your Response</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .context-section {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .context-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .context-text {
+            color: #333;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        .responses-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .response-option {
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .response-option:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.15);
+        }
+
+        .response-option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        }
+
+        .response-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .response-text {
+            padding-left: 2rem;
+            font-size: 1.05rem;
+            color: #333;
+            position: relative;
+        }
+
+        .response-text::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .response-option.selected .response-text::before {
+            border-color: #667eea;
+            background: #667eea;
+        }
+
+        .response-option.selected .response-text::after {
+            content: '✓';
+            position: absolute;
+            left: -1.3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            margin-top: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            box-shadow: 0 10px 20px rgba(108, 117, 125, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .help-text {
+            text-align: center;
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .response-text {
+                font-size: 1rem;
+            }
+        }
+
+        .no-selection {
+            color: #dc3545;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 0.5rem;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Tind AI - Responses</h1>
-    <p><b>Context:</b> {{ context }}</p>
-    <form action="/save_feedback" method="post">
-        <input type="hidden" name="context" value="{{ context }}">
-        {% for response in responses %}
-            <input type="hidden" name="responses" value="{{ response }}">
-            <input type="radio" name="best_response" value="{{ response }}" id="response{{ loop.index }}">
-            <label for="response{{ loop.index }}">{{ response }}</label>
-            <br>
-        {% endfor %}
-        <br>
-        <input type="submit" value="Save Feedback">
-    </form>
+    <div class="container">
+        <h1>💬 Choose Your Best Response</h1>
+
+        <div class="context-section">
+            <div class="context-label">💭 Conversation Context:</div>
+            <div class="context-text">"{{ context|e }}"</div>
+        </div>
+
+        <form action="/save_feedback" method="post" id="feedbackForm">
+            <input type="hidden" name="context" value="{{ context|e }}">
+            {% for response in responses %}
+                <input type="hidden" name="responses" value="{{ response|e }}">
+            {% endfor %}
+
+            <div class="responses-section">
+                <div class="section-title">🎯 Select the response that feels most natural and engaging:</div>
+                
+                <div class="help-text">
+                    Click on the response that best matches the tone and context of the conversation. 
+                    Your feedback helps improve our AI for future conversations.
+                </div>
+
+                {% for response in responses %}
+                    <div class="response-option" data-response="{{ loop.index }}">
+                        <input 
+                            type="radio" 
+                            name="best_response" 
+                            value="{{ response|e }}" 
+                            id="response{{ loop.index }}"
+                        >
+                        <div class="response-text">{{ response|e }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="no-selection" id="noSelection">
+                Please select a response before submitting your feedback.
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn" disabled>
+                ✅ Save My Feedback
+            </button>
+        </form>
+
+        <a href="/" class="btn btn-secondary">
+            🔄 Try Another Context
+        </a>
+
+        <div class="footer">
+            <p>Thank you for helping us improve! Your feedback makes our AI smarter. 🙏</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('feedbackForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const noSelection = document.getElementById('noSelection');
+            const responseOptions = document.querySelectorAll('.response-option');
+            const radioButtons = document.querySelectorAll('input[name="best_response"]');
+
+            // Handle response option clicking
+            responseOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const radioId = this.getAttribute('data-response');
+                    const radio = document.getElementById(`response${radioId}`);
+                    
+                    // Remove selected class from all options
+                    responseOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Check the radio button
+                    radio.checked = true;
+                    
+                    // Enable submit button
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '✅ Save My Feedback';
+                    
+                    // Hide no selection message
+                    noSelection.style.display = 'none';
+                });
+            });
+
+            // Handle form submission
+            form.addEventListener('submit', function(e) {
+                const selectedResponse = document.querySelector('input[name="best_response"]:checked');
+                
+                if (!selectedResponse) {
+                    e.preventDefault();
+                    noSelection.style.display = 'block';
+                    submitBtn.textContent = '❌ Please Select a Response';
+                    setTimeout(() => {
+                        submitBtn.textContent = '✅ Save My Feedback';
+                    }, 2000);
+                    return;
+                }
+
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.textContent = '💾 Saving Feedback...';
+            });
+
+            // Add hover effects for better UX
+            responseOptions.forEach(option => {
+                option.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('selected')) {
+                        this.style.borderColor = '#667eea';
+                    }
+                });
+
+                option.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('selected')) {
+                        this.style.borderColor = '#e1e5e9';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
