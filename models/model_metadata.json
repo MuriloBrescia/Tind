@@ -1,14 +1,14 @@
 {
-  "model_version": "tind-v20250714-064949",
-  "training_timestamp": "2025-07-14T06:49:49.125929",
+  "model_version": "tind-v20250714-072748",
+  "training_timestamp": "2025-07-14T07:27:48.235160",
   "training_data_analysis": {
-    "total_examples": 1,
-    "unique_contexts": 1,
-    "total_responses": 5,
-    "unique_responses": 5,
-    "avg_context_length": 13.0,
-    "avg_response_length": 49.8,
-    "recent_examples": 0
+    "total_examples": 2,
+    "unique_contexts": 2,
+    "total_responses": 10,
+    "unique_responses": 10,
+    "avg_context_length": 12.5,
+    "avg_response_length": 52.0,
+    "recent_examples": 1
   },
   "model_type": "conversational_response_generator",
   "framework": "tind_ai_simulation",
