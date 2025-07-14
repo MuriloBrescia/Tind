@@ -1,18 +1,14 @@
-import logging
-from pathlib import Path
-
-MODELS_DIR = Path("models")
+import json
+import os
 
 def fine_tune_model():
-    """Simulate the fine-tuning process by writing a dummy model file."""
+    # Create a dummy model file
+    if not os.path.exists("./models"):
+        os.makedirs("./models")
+    with open("./models/model.txt", "w") as f:
+        f.write("This is a dummy model.")
 
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s ﹣ %(levelname)s ﹣ %(message)s")
-
-    MODELS_DIR.mkdir(parents=True, exist_ok=True)
-
-    (MODELS_DIR / "model.txt").write_text("This is a dummy model.")
-
-    logging.info("Fine-tuning complete (simulated). Model written to %s", MODELS_DIR / "model.txt")
+    print("Fine-tuning complete (simulated).")
 
 if __name__ == "__main__":
     fine_tune_model()
