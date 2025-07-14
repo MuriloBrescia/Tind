@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tind AI - Smart Conversation Assistant</title>
+    <title>Tind AI - Assistente Inteligente de Conversação</title>
     <style>
         * {
             margin: 0;
@@ -206,9 +206,9 @@
 <body>
     <div class="container">
         <h1>💬 Tind AI</h1>
-        <p class="subtitle">Your intelligent conversation companion</p>
+        <p class="subtitle">Seu companheiro inteligente de conversação</p>
 
-        <!-- Flash messages -->
+        <!-- Mensagens flash -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -221,11 +221,11 @@
 
         <form action="/get_responses" method="post" id="contextForm">
             <div class="form-group">
-                <label for="context">What's the conversation context?</label>
+                <label for="context">Qual é o contexto da conversa?</label>
                 <textarea 
                     name="context" 
                     id="context" 
-                    placeholder="Example: 'Hi there! How's your day going?' or 'I'm feeling a bit sad today...'"
+                    placeholder="Exemplo: 'Oi! Como está o seu dia?' ou 'Estou me sentindo um pouco triste hoje...'"
                     maxlength="1000"
                     required
                 ></textarea>
@@ -233,21 +233,21 @@
             </div>
 
             <button type="submit" class="btn" id="submitBtn">
-                ✨ Generate Responses
+                ✨ Gerar Respostas
             </button>
         </form>
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p>Generating thoughtful responses...</p>
+            <p>Gerando respostas inteligentes...</p>
         </div>
 
         <div class="footer">
             <p>
-                <a href="/stats" class="stats-link">📊 View Statistics</a> | 
-                <a href="/health" class="stats-link">🔍 Health Check</a>
+                <a href="/stats" class="stats-link">📊 Ver Estatísticas</a> | 
+                <a href="/health" class="stats-link">🔍 Verificar Sistema</a>
             </p>
-            <p>Helping you have better conversations, one response at a time.</p>
+            <p>Ajudando você a ter conversas melhores, uma resposta por vez.</p>
         </div>
     </div>
 
@@ -259,7 +259,7 @@
             const submitBtn = document.getElementById('submitBtn');
             const loading = document.getElementById('loading');
 
-            // Character counter
+            // Contador de caracteres
             textarea.addEventListener('input', function() {
                 const length = this.value.length;
                 const maxLength = 1000;
@@ -274,31 +274,31 @@
                 }
             });
 
-            // Form submission with loading state
+            // Submissão do formulário com estado de carregamento
             form.addEventListener('submit', function(e) {
                 const context = textarea.value.trim();
                 
                 if (!context) {
                     e.preventDefault();
-                    alert('Please enter some conversation context.');
+                    alert('Por favor, digite o contexto da conversa.');
                     textarea.focus();
                     return;
                 }
 
                 if (context.length > 1000) {
                     e.preventDefault();
-                    alert('Context is too long. Please keep it under 1000 characters.');
+                    alert('Contexto muito longo. Mantenha abaixo de 1000 caracteres.');
                     textarea.focus();
                     return;
                 }
 
-                // Show loading state
+                // Mostrar estado de carregamento
                 submitBtn.disabled = true;
                 loading.style.display = 'block';
-                submitBtn.textContent = 'Generating...';
+                submitBtn.textContent = 'Gerando...';
             });
 
-            // Auto-focus the textarea
+            // Foco automático no textarea
             textarea.focus();
         });
     </script>

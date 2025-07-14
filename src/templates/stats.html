@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tind AI - Statistics</title>
+    <title>Tind AI - Estatísticas</title>
     <style>
         * {
             margin: 0;
@@ -216,33 +216,33 @@
 </head>
 <body>
     <div class="container">
-        <h1>📊 Tind AI Statistics</h1>
+        <h1>📊 Estatísticas do Tind AI</h1>
 
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon">💬</div>
                 <div class="stat-number">{{ conversation_count }}</div>
-                <div class="stat-label">Conversations</div>
-                <div class="stat-description">Total feedback collected</div>
+                <div class="stat-label">Conversas</div>
+                <div class="stat-description">Total de feedback coletado</div>
             </div>
 
             <div class="stat-card">
                 <div class="stat-icon">🤖</div>
                 <div class="stat-number">{{ (conversation_count * 5) if conversation_count else 0 }}</div>
-                <div class="stat-label">Responses Generated</div>
-                <div class="stat-description">AI responses created</div>
+                <div class="stat-label">Respostas Geradas</div>
+                <div class="stat-description">Respostas de IA criadas</div>
             </div>
 
             <div class="stat-card">
                 <div class="stat-icon">⭐</div>
                 <div class="stat-number">{{ "%.1f"|format((conversation_count / 10.0 * 100) if conversation_count else 0) }}%</div>
-                <div class="stat-label">Learning Progress</div>
-                <div class="stat-description">AI improvement level</div>
+                <div class="stat-label">Progresso do Aprendizado</div>
+                <div class="stat-description">Nível de melhoria da IA</div>
             </div>
         </div>
 
         <div class="progress-section">
-            <div class="progress-label">AI Training Progress</div>
+            <div class="progress-label">Progresso do Treinamento da IA</div>
             <div class="progress-bar">
                 <div class="progress-fill" style="width: {{ (conversation_count / 10.0 * 100) if conversation_count else 0 }}%">
                     <div class="progress-text">{{ "%.0f"|format((conversation_count / 10.0 * 100) if conversation_count else 0) }}%</div>
@@ -251,51 +251,51 @@
         </div>
 
         <div class="info-section">
-            <div class="info-title">🧠 How It Works</div>
+            <div class="info-title">🧠 Como Funciona</div>
             <div class="info-text">
-                Every time you provide feedback on our AI responses, you're helping train our model to be more 
-                intelligent and contextually aware. Your input directly contributes to better conversation quality.
+                Toda vez que você fornece feedback sobre as respostas da nossa IA, está ajudando a treinar nosso modelo para ser mais 
+                inteligente e contextualmente consciente. Sua contribuição diretamente melhora a qualidade da conversa.
             </div>
             <div class="info-text">
-                <strong>Current Status:</strong> 
+                <strong>Status Atual:</strong> 
                 {% if conversation_count == 0 %}
-                    Just getting started! Add your first conversation to begin training.
+                    Começando agora! Adicione sua primeira conversa para iniciar o treinamento.
                 {% elif conversation_count < 5 %}
-                    Early learning phase - keep providing feedback to improve responses.
+                    Fase de aprendizado inicial - continue fornecendo feedback para melhorar as respostas.
                 {% elif conversation_count < 10 %}
-                    Good progress! The AI is learning your preferences.
+                    Bom progresso! A IA está aprendendo suas preferências.
                 {% else %}
-                    Excellent! The AI has learned from {{ conversation_count }} conversations.
+                    Excelente! A IA aprendeu com {{ conversation_count }} conversas.
                 {% endif %}
             </div>
         </div>
 
         {% if conversation_count > 0 %}
         <div class="info-section">
-            <div class="info-title">📈 Recent Improvements</div>
+            <div class="info-title">📈 Melhorias Recentes</div>
             <div class="info-text">
-                Based on your feedback, our AI has learned to:
+                Baseado no seu feedback, nossa IA aprendeu a:
             </div>
             <ul style="color: #666; margin-left: 2rem;">
-                <li>Better understand conversation context</li>
-                <li>Generate more natural responses</li>
-                <li>Adapt to different conversation tones</li>
-                <li>Avoid inappropriate content</li>
+                <li>Entender melhor o contexto da conversa</li>
+                <li>Gerar respostas mais naturais</li>
+                <li>Adaptar-se a diferentes tons de conversa</li>
+                <li>Evitar conteúdo inapropriado</li>
             </ul>
         </div>
         {% endif %}
 
         <div style="text-align: center;">
             <a href="/" class="btn">
-                🏠 Back to Home
+                🏠 Voltar ao Início
             </a>
             <a href="/health" class="btn btn-secondary">
-                🔍 Health Check
+                🔍 Verificar Sistema
             </a>
         </div>
 
         <div class="footer">
-            <p>Statistics updated in real-time. Thank you for contributing to AI improvement! 🙏</p>
+            <p>Estatísticas atualizadas em tempo real. Obrigado por contribuir com a melhoria da IA! 🙏</p>
         </div>
     </div>
 </body>

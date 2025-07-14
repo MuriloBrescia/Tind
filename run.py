@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Tind AI Application Runner
+Executador da Aplicação Tind AI
 
-This script provides an easy way to run the Tind AI application from the project root.
-It handles path setup and provides different running modes.
+Este script fornece uma maneira fácil de executar a aplicação Tind AI a partir da raiz do projeto.
+Ele lida com a configuração de caminhos e fornece diferentes modos de execução.
 """
 
 import os
@@ -12,46 +12,46 @@ import subprocess
 from pathlib import Path
 
 def main():
-    """Main runner function."""
-    # Ensure we're in the project root
+    """Função principal do executador."""
+    # Garantir que estamos na raiz do projeto
     project_root = Path(__file__).parent
     os.chdir(project_root)
     
-    # Add src to Python path
+    # Adicionar src ao caminho do Python
     src_path = project_root / "src"
     sys.path.insert(0, str(src_path))
     
-    print("🚀 Starting Tind AI Application...")
+    print("🚀 Iniciando Aplicação Tind AI...")
     print("=" * 40)
     
-    # Check if Flask is available
+    # Verificar se o Flask está disponível
     try:
         import flask
-        print(f"✅ Flask {flask.__version__} found")
+        print(f"✅ Flask {flask.__version__} encontrado")
     except ImportError:
-        print("❌ Flask not found. Installing...")
+        print("❌ Flask não encontrado. Instalando...")
         try:
             subprocess.check_call([sys.executable, "-m", "pip", "install", "flask", "werkzeug"])
-            print("✅ Flask installed successfully")
+            print("✅ Flask instalado com sucesso")
         except subprocess.CalledProcessError:
-            print("❌ Failed to install Flask. Please install manually:")
+            print("❌ Falha ao instalar Flask. Por favor, instale manualmente:")
             print("   pip install flask werkzeug")
             return 1
     
-    # Import and run the app
+    # Importar e executar a aplicação
     try:
         from src.app import app
-        print("✅ Application loaded successfully")
-        print("🌐 Starting web server...")
-        print("📱 Open your browser to: http://localhost:5000")
-        print("⚠️  Press Ctrl+C to stop the server")
+        print("✅ Aplicação carregada com sucesso")
+        print("🌐 Iniciando servidor web...")
+        print("📱 Abra seu navegador em: http://localhost:5000")
+        print("⚠️  Pressione Ctrl+C para parar o servidor")
         print("=" * 40)
         
-        # Run the Flask app
+        # Executar a aplicação Flask
         app.run(host='0.0.0.0', port=5000, debug=True)
         
     except Exception as e:
-        print(f"❌ Error starting application: {e}")
+        print(f"❌ Erro ao iniciar aplicação: {e}")
         return 1
     
     return 0

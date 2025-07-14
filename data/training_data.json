@@ -21,5 +21,17 @@
     ],
     "best_response": "Hi there! Great to meet you! How's your day going?",
     "timestamp": "2025-07-14T07:12:08.020112"
+  },
+  {
+    "context": "Contexto de teste",
+    "responses": [
+      "Oi! Que bom te conhecer! Como está sendo seu dia?",
+      "Hey! Você parece interessante - o que te trouxe aqui hoje?",
+      "Olá! Estava pensando que esta conversa precisava de alguém como você.",
+      "Oi! Tenho que dizer, você tem um timing perfeito. E aí?",
+      "Hey! Pronto para uma conversa incrível?"
+    ],
+    "best_response": "Oi! Que bom te conhecer! Como está sendo seu dia?",
+    "timestamp": "2025-07-14T07:59:39.821104"
   }
 ]

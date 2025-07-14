@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tind AI - Error {{ error_code }}</title>
+    <title>Tind AI - Erro {{ error_code }}</title>
     <style>
         * {
             margin: 0;
@@ -129,39 +129,39 @@
         {% if error_code == 404 %}
             <div class="error-icon">🔍</div>
             <div class="error-code">404</div>
-            <div class="error-title">Page Not Found</div>
+            <div class="error-title">Página Não Encontrada</div>
             <div class="error-message">
-                Oops! The page you're looking for seems to have wandered off. 
-                Don't worry, even our AI gets lost sometimes.
+                Ops! A página que você está procurando parece ter se perdido. 
+                Não se preocupe, até nossa IA se perde às vezes.
             </div>
         {% elif error_code == 500 %}
             <div class="error-icon">⚠️</div>
             <div class="error-code">500</div>
-            <div class="error-title">Server Error</div>
+            <div class="error-title">Erro do Servidor</div>
             <div class="error-message">
-                Something went wrong on our end. Our AI is working to fix this issue. 
-                Please try again in a few moments.
+                Algo deu errado do nosso lado. Nossa IA está trabalhando para corrigir este problema. 
+                Por favor, tente novamente em alguns instantes.
             </div>
         {% else %}
             <div class="error-icon">❌</div>
             <div class="error-code">{{ error_code }}</div>
-            <div class="error-title">Something Went Wrong</div>
+            <div class="error-title">Algo Deu Errado</div>
             <div class="error-message">
-                {{ error_message|e if error_message else "An unexpected error occurred. Please try again." }}
+                {{ error_message|e if error_message else "Ocorreu um erro inesperado. Por favor, tente novamente." }}
             </div>
         {% endif %}
 
         <div>
             <a href="/" class="btn">
-                🏠 Go Home
+                🏠 Ir para o Início
             </a>
             <a href="javascript:history.back()" class="btn btn-secondary">
-                ← Go Back
+                ← Voltar
             </a>
         </div>
 
         <div class="footer">
-            <p>If this problem persists, our AI might need a coffee break ☕</p>
+            <p>Se este problema persistir, nossa IA pode precisar de uma pausa para o café ☕</p>
         </div>
     </div>
 </body>
