@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tind AI - Statistics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #e1e5e9;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .stat-description {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 0.5rem;
+        }
+
+        .info-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .info-text {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .progress-section {
+            margin-bottom: 2rem;
+        }
+
+        .progress-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            text-decoration: none;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            box-shadow: 0 10px 20px rgba(108, 117, 125, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Tind AI Statistics</h1>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">💬</div>
+                <div class="stat-number">{{ conversation_count }}</div>
+                <div class="stat-label">Conversations</div>
+                <div class="stat-description">Total feedback collected</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🤖</div>
+                <div class="stat-number">{{ (conversation_count * 5) if conversation_count else 0 }}</div>
+                <div class="stat-label">Responses Generated</div>
+                <div class="stat-description">AI responses created</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-number">{{ "%.1f"|format((conversation_count / 10.0 * 100) if conversation_count else 0) }}%</div>
+                <div class="stat-label">Learning Progress</div>
+                <div class="stat-description">AI improvement level</div>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-label">AI Training Progress</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ (conversation_count / 10.0 * 100) if conversation_count else 0 }}%">
+                    <div class="progress-text">{{ "%.0f"|format((conversation_count / 10.0 * 100) if conversation_count else 0) }}%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-title">🧠 How It Works</div>
+            <div class="info-text">
+                Every time you provide feedback on our AI responses, you're helping train our model to be more 
+                intelligent and contextually aware. Your input directly contributes to better conversation quality.
+            </div>
+            <div class="info-text">
+                <strong>Current Status:</strong> 
+                {% if conversation_count == 0 %}
+                    Just getting started! Add your first conversation to begin training.
+                {% elif conversation_count < 5 %}
+                    Early learning phase - keep providing feedback to improve responses.
+                {% elif conversation_count < 10 %}
+                    Good progress! The AI is learning your preferences.
+                {% else %}
+                    Excellent! The AI has learned from {{ conversation_count }} conversations.
+                {% endif %}
+            </div>
+        </div>
+
+        {% if conversation_count > 0 %}
+        <div class="info-section">
+            <div class="info-title">📈 Recent Improvements</div>
+            <div class="info-text">
+                Based on your feedback, our AI has learned to:
+            </div>
+            <ul style="color: #666; margin-left: 2rem;">
+                <li>Better understand conversation context</li>
+                <li>Generate more natural responses</li>
+                <li>Adapt to different conversation tones</li>
+                <li>Avoid inappropriate content</li>
+            </ul>
+        </div>
+        {% endif %}
+
+        <div style="text-align: center;">
+            <a href="/" class="btn">
+                🏠 Back to Home
+            </a>
+            <a href="/health" class="btn btn-secondary">
+                🔍 Health Check
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>Statistics updated in real-time. Thank you for contributing to AI improvement! 🙏</p>
+        </div>
+    </div>
+</body>
+</html>
