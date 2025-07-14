@@ -5,108 +5,108 @@ from typing import List, Dict, Any, Optional
 from pathlib import Path
 import threading
 
-# Configure logging
+# Configurar logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Constants - paths relative to project root
+# Constantes - caminhos relativos à raiz do projeto
 _project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_MODEL_PATH = os.path.join(_project_root, "models", "model.txt")
 TRAINING_DATA_PATH = os.path.join(_project_root, "data", "training_data.json")
-OFFENSIVE_WORDS = ["hate", "kill", "die", "hurt", "violence"]
+OFFENSIVE_WORDS = ["ódio", "matar", "morrer", "machucar", "violência", "hate", "kill", "die", "hurt", "violence"]
 
-# Thread lock for safe file operations
+# Trava de thread para operações de arquivo seguras
 file_lock = threading.Lock()
 
 class TindAgent:
-    """AI agent for generating conversation responses and handling user feedback."""
+    """Agente de IA para gerar respostas de conversa e lidar com feedback do usuário."""
     
     def __init__(self, model_path: str = DEFAULT_MODEL_PATH):
-        """Initialize the agent with a model."""
+        """Inicializar o agente com um modelo."""
         self.model_path = Path(model_path)
         self.model_content = self._load_model()
         
     def _load_model(self) -> Optional[str]:
-        """Load model from file with proper error handling."""
+        """Carregar modelo do arquivo com tratamento adequado de erros."""
         try:
             if not self.model_path.exists():
-                logger.warning(f"Model file not found at {self.model_path}")
+                logger.warning(f"Arquivo do modelo não encontrado em {self.model_path}")
                 return None
                 
             with open(self.model_path, "r", encoding="utf-8") as f:
                 content = f.read().strip()
-                logger.info(f"Model loaded successfully from {self.model_path}")
+                logger.info(f"Modelo carregado com sucesso de {self.model_path}")
                 return content
                 
         except Exception as e:
-            logger.error(f"Error loading model: {e}")
+            logger.error(f"Erro ao carregar modelo: {e}")
             return None
 
     def generate_responses(self, context: str, num_responses: int = 5) -> List[str]:
-        """Generate responses based on context with improved logic."""
+        """Gerar respostas baseadas no contexto com lógica aprimorada."""
         if not context or not context.strip():
-            return ["I'd love to chat! What's on your mind?"]
+            return ["Eu adoraria conversar! O que está pensando?"]
             
         context_lower = context.lower().strip()
         
-        # More sophisticated response generation based on context
-        if any(word in context_lower for word in ["sad", "down", "upset", "depressed"]):
+        # Geração de resposta mais sofisticada baseada no contexto
+        if any(word in context_lower for word in ["triste", "down", "chateado", "deprimido", "sad", "upset", "depressed"]):
             responses = [
-                "I'm sorry to hear that. Is there anything I can do to help?",
-                "It's okay to feel sad sometimes. I'm here for you.",
-                "Sending you a virtual hug. 🤗",
-                "I'm here to listen if you want to talk about it.",
-                "Remember that this feeling will pass. You're stronger than you know.",
+                "Sinto muito saber disso. Há algo que eu possa fazer para ajudar?",
+                "É normal se sentir triste às vezes. Estou aqui para você.",
+                "Mandando um abraço virtual. 🤗",
+                "Estou aqui para te ouvir se quiser conversar sobre isso.",
+                "Lembre-se de que esse sentimento vai passar. Você é mais forte do que imagina.",
             ]
-        elif any(word in context_lower for word in ["hello", "hi", "hey", "oi"]):
+        elif any(word in context_lower for word in ["olá", "oi", "hey", "hello", "hi"]):
             responses = [
-                "Hi there! Great to meet you! How's your day going?",
-                "Hey! You seem interesting - what brings you here today?",
-                "Hello! I was just thinking this conversation needed someone like you.",
-                "Hi! I have to say, you have great timing. What's up?",
-                "Hey there! Ready for an amazing conversation?",
+                "Oi! Que bom te conhecer! Como está sendo seu dia?",
+                "Hey! Você parece interessante - o que te trouxe aqui hoje?",
+                "Olá! Estava pensando que esta conversa precisava de alguém como você.",
+                "Oi! Tenho que dizer, você tem um timing perfeito. E aí?",
+                "Hey! Pronto para uma conversa incrível?",
             ]
-        elif any(word in context_lower for word in ["happy", "good", "great", "awesome"]):
+        elif any(word in context_lower for word in ["feliz", "bom", "ótimo", "incrível", "happy", "good", "great", "awesome"]):
             responses = [
-                "That's wonderful to hear! Your positive energy is contagious.",
-                "I love your enthusiasm! What's making you so happy?",
-                "Your good mood just made my day better too!",
-                "That's amazing! I'd love to hear more about what's going well.",
-                "Your happiness is infectious - keep spreading those good vibes!",
+                "Que maravilhoso saber disso! Sua energia positiva é contagiante.",
+                "Adoro seu entusiasmo! O que está te deixando tão feliz?",
+                "Seu bom humor acabou de melhorar meu dia também!",
+                "Isso é incrível! Adoraria saber mais sobre o que está indo bem.",
+                "Sua felicidade é contagiosa - continue espalhando essas boas vibrações!",
             ]
         else:
-            # Default conversation starters
+            # Iniciadores de conversa padrão
             responses = [
-                "That's interesting! Tell me more about that.",
-                "I find that fascinating. What's your take on it?",
-                "You have a unique perspective. I'd love to hear more.",
-                "That caught my attention. What made you think of that?",
-                "Interesting point! How did you come to that conclusion?",
+                "Isso é interessante! Me conta mais sobre isso.",
+                "Acho isso fascinante. Qual é sua opinião sobre isso?",
+                "Você tem uma perspectiva única. Adoraria ouvir mais.",
+                "Isso chamou minha atenção. O que te fez pensar nisso?",
+                "Ponto interessante! Como você chegou a essa conclusão?",
             ]
         
-        # Ensure we return the requested number of responses
+        # Garantir que retornamos o número solicitado de respostas
         while len(responses) < num_responses:
             responses.extend(responses[:num_responses - len(responses)])
             
         return responses[:num_responses]
 
     def filter_responses(self, responses: List[str]) -> List[str]:
-        """Filter out potentially offensive responses."""
+        """Filtrar respostas potencialmente ofensivas."""
         filtered_responses = []
         
         for response in responses:
             if any(word in response.lower() for word in OFFENSIVE_WORDS):
-                filtered_responses.append("I'd prefer to keep our conversation positive and respectful.")
-                logger.warning(f"Filtered offensive response: {response}")
+                filtered_responses.append("Prefiro manter nossa conversa positiva e respeitosa.")
+                logger.warning(f"Resposta ofensiva filtrada: {response}")
             else:
                 filtered_responses.append(response)
                 
         return filtered_responses
 
     def save_conversation(self, context: str, responses: List[str], best_response: str) -> bool:
-        """Save conversation data with thread safety and error handling."""
+        """Salvar dados da conversa com segurança de thread e tratamento de erros."""
         if not context or not responses or not best_response:
-            logger.error("Invalid conversation data provided")
+            logger.error("Dados de conversa inválidos fornecidos")
             return False
             
         conversation_data = {
@@ -118,51 +118,51 @@ class TindAgent:
         
         try:
             with file_lock:
-                # Ensure data directory exists
+                # Garantir que o diretório de dados existe
                 data_dir = Path(TRAINING_DATA_PATH).parent
                 data_dir.mkdir(exist_ok=True)
                 
-                # Load existing data or create new list
+                # Carregar dados existentes ou criar nova lista
                 existing_data = self._load_training_data()
                 existing_data.append(conversation_data)
                 
-                # Write back to file
+                # Escrever de volta para o arquivo
                 with open(TRAINING_DATA_PATH, "w", encoding="utf-8") as f:
                     json.dump(existing_data, f, indent=2, ensure_ascii=False)
                     
-                logger.info("Conversation data saved successfully")
+                logger.info("Dados da conversa salvos com sucesso")
                 return True
                 
         except Exception as e:
-            logger.error(f"Error saving conversation: {e}")
+            logger.error(f"Erro ao salvar conversa: {e}")
             return False
 
     def _load_training_data(self) -> List[Dict[str, Any]]:
-        """Load existing training data or return empty list."""
+        """Carregar dados de treinamento existentes ou retornar lista vazia."""
         try:
             if Path(TRAINING_DATA_PATH).exists():
                 with open(TRAINING_DATA_PATH, "r", encoding="utf-8") as f:
                     return json.load(f)
         except Exception as e:
-            logger.error(f"Error loading training data: {e}")
+            logger.error(f"Erro ao carregar dados de treinamento: {e}")
             
         return []
 
     def _get_timestamp(self) -> str:
-        """Get current timestamp for data tracking."""
+        """Obter timestamp atual para rastreamento de dados."""
         from datetime import datetime
         return datetime.now().isoformat()
 
     def get_user_feedback_cli(self, responses: List[str]) -> Optional[str]:
-        """Get user feedback via command line interface."""
-        print("\nPlease choose the best response:")
+        """Obter feedback do usuário via interface de linha de comando."""
+        print("\nPor favor, escolha a melhor resposta:")
         for i, response in enumerate(responses, 1):
             print(f"{i}. {response}")
-        print("0. None of the above")
+        print("0. Nenhuma das opções acima")
 
         while True:
             try:
-                choice = input("\nEnter your choice (0-{}): ".format(len(responses)))
+                choice = input("\nDigite sua escolha (0-{}): ".format(len(responses)))
                 choice_num = int(choice)
                 
                 if choice_num == 0:
@@ -170,55 +170,55 @@ class TindAgent:
                 elif 1 <= choice_num <= len(responses):
                     return responses[choice_num - 1]
                 else:
-                    print(f"Please enter a number between 0 and {len(responses)}")
+                    print(f"Por favor, digite um número entre 0 e {len(responses)}")
                     
             except (ValueError, KeyboardInterrupt):
-                print("Invalid input. Please enter a number.")
+                print("Entrada inválida. Por favor, digite um número.")
                 continue
 
 def main():
-    """Main function for CLI usage."""
+    """Função principal para uso em CLI."""
     agent = TindAgent()
     
     if not agent.model_content:
-        print("Warning: No model loaded. Using default response generation.")
+        print("Aviso: Nenhum modelo carregado. Usando geração de resposta padrão.")
     
-    print("Welcome to Tind AI! (Type 'quit' to exit)")
+    print("Bem-vindo ao Tind AI! (Digite 'sair' para encerrar)")
     
     while True:
         try:
-            context = input("\nEnter conversation context: ").strip()
+            context = input("\nDigite o contexto da conversa: ").strip()
             
-            if context.lower() in ['quit', 'exit', 'q']:
-                print("Goodbye!")
+            if context.lower() in ['sair', 'exit', 'quit', 'q']:
+                print("Até logo!")
                 break
                 
             if not context:
-                print("Please enter some context.")
+                print("Por favor, digite algum contexto.")
                 continue
                 
-            # Generate and filter responses
+            # Gerar e filtrar respostas
             responses = agent.generate_responses(context)
             filtered_responses = agent.filter_responses(responses)
             
-            # Get user feedback
+            # Obter feedback do usuário
             best_response = agent.get_user_feedback_cli(filtered_responses)
             
             if best_response:
                 success = agent.save_conversation(context, filtered_responses, best_response)
                 if success:
-                    print("✅ Feedback saved successfully!")
+                    print("✅ Feedback salvo com sucesso!")
                 else:
-                    print("❌ Error saving feedback.")
+                    print("❌ Erro ao salvar feedback.")
             else:
-                print("No response selected.")
+                print("Nenhuma resposta selecionada.")
                 
         except KeyboardInterrupt:
-            print("\nGoodbye!")
+            print("\nAté logo!")
             break
         except Exception as e:
-            logger.error(f"Unexpected error: {e}")
-            print("An error occurred. Please try again.")
+            logger.error(f"Erro inesperado: {e}")
+            print("Ocorreu um erro. Tente novamente.")
 
 if __name__ == "__main__":
     main()
